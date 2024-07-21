@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  grand.web:
+    image: ${DOCKER_REGISTRY-}alchiweb/choixdevie_gn2:latest
+    ports:
+      - 8060:80
+      # - 8061:81
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      # - ASPNETCORE_URLS=https://+:81;http://+:80
+      # - ASPNETCORE_Kestrel__Certificates__Default__Password=a2091e37-94a0-4446-8a5d-1d5c0835333a
+      # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+      - cdv-gn2-appdata:/app/App_Data
+      - cdv-gn2-wwwroot:/app/wwwroot      
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - "db"
+  db:
+    image: mongo
+volumes:
+    cdv-gn2-appdata:
+    cdv-gn2-wwwroot:

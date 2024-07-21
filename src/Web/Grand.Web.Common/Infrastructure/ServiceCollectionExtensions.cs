@@ -207,6 +207,7 @@ public static class ServiceCollectionExtensions
             options.JsonSerializerOptions.PropertyNamingPolicy = null;
             options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         });
+        mvcBuilder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
         //add view localization
         mvcBuilder.AddViewLocalization();
